@@ -1,6 +1,6 @@
-import "core-js/stable";
 import React from "react";
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import "core-js/stable";
 import {BrowserRouter} from "react-router-dom";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
@@ -22,11 +22,12 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(axiosInstance))
 );
 
-ReactDOM.hydrate(
+const root = createRoot(container);
+
+root.render(
     <Provider store={store}>
         <BrowserRouter>
             <div>{renderRoutes(MyRoutes)}</div>
         </BrowserRouter>
     </Provider>
-    , container
 );
